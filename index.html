@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Piruthviraj — Data Scientist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Atmosphere -->
+<div class="sky"></div>
+<div class="sky-tint"></div>
+
+<!-- Cursor glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Nav -->
+<header class="topbar">
+  <div class="brand">piruthviraj<span class="dot">.</span></div>
+  <nav class="tabs" aria-label="Sections">
+    <button class="tab active" data-tab="home">Home</button>
+    <button class="tab" data-tab="projects">Projects</button>
+    <button class="tab" data-tab="services">Services</button>
+    <button class="tab" data-tab="contact">Contact</button>
+    <button class="tab" data-tab="misc">Misc</button>
+  </nav>
+</header>
+
+<div class="shell">
+<main>
+
+  <!-- HOME -->
+  <section class="section active" id="home">
+    <div class="hero reveal">
+      <div class="hero-left">
+        <h1 class="hero-title"><span>Find the signal.</span><span class="dim">Skip the noise.</span></h1>
+      </div>
+      <div class="hero-right">
+        <p class="hero-sub">I'm Piruthviraj — a data scientist building predictive models, real-time pipelines, and interfaces that make complexity feel effortless.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-goto="projects">View projects</button>
+        </div>
+        <div class="chips">
+          <a class="chip" href="#">GitHub</a>
+          <a class="chip" href="#">LinkedIn</a>
+          <a class="chip" href="#">Resume</a>
+          <a class="chip" href="#">Kaggle</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="deck-block">
+      <div class="deck-head">
+        <span class="deck-label">Featured work</span>
+        <div class="deck-progress"><span id="deckBar"></span></div>
+      </div>
+      <div class="deck-viewport" id="deckVp">
+        <div class="deck-track" id="deckTrack"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="page-head reveal">
+      <h2 class="page-title">Projects</h2>
+      <p class="page-desc">A closer look at the work — models, pipelines, and tools built end to end.</p>
+    </div>
+    <div class="proj-grid" id="projGrid"></div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section" id="services">
+    <div class="page-head reveal">
+      <h2 class="page-title">Services</h2>
+      <p class="page-desc">Flexible engagements, from a one-off analysis to standing up your full data stack.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-row glass"><div class="svc-no">01</div><div><div class="svc-name">Data Analysis &amp; Reporting</div><div class="svc-desc">Deep EDA, KPI dashboards, executive-ready insight decks.</div></div><div class="svc-price">from $500</div></div>
+      <div class="svc-row glass"><div class="svc-no">02</div><div><div class="svc-name">ML Model Development</div><div class="svc-desc">Feature engineering through deployment and monitoring.</div></div><div class="svc-price">from $1,500</div></div>
+      <div class="svc-row glass"><div class="svc-no">03</div><div><div class="svc-name">Data Engineering</div><div class="svc-desc">Pipelines, warehouse modeling, and automation.</div></div><div class="svc-price">from $2,000</div></div>
+      <div class="svc-row glass"><div class="svc-no">04</div><div><div class="svc-name">Consulting &amp; Strategy</div><div class="svc-desc">Advisory on stack, roadmap, and best practices.</div></div><div class="svc-price">$150/hr</div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="page-head reveal">
+      <h2 class="page-title">Let's talk</h2>
+      <p class="page-desc">Tell me what you're building — I usually reply within a day.</p>
+    </div>
+    <div class="contact-wrap">
+      <form class="glass contact-form" onsubmit="return false">
+        <div class="field"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="field"><label>Message</label><textarea placeholder="Tell me about your project..."></textarea></div>
+        <button class="btn btn-primary" type="submit">Send message →</button>
+      </form>
+      <div class="contact-info">
+        <div class="ci glass"><div class="ci-ic">@</div><div><div class="ci-lbl">Email</div><div class="ci-val">you@email.com</div></div></div>
+        <div class="ci glass"><div class="ci-ic">◎</div><div><div class="ci-lbl">Location</div><div class="ci-val">Chennai, India · Remote</div></div></div>
+        <div class="ci glass"><div class="ci-ic">⧗</div><div><div class="ci-lbl">Response</div><div class="ci-val">Within 24 hours</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MISC -->
+  <section class="section" id="misc">
+    <div class="page-head reveal">
+      <h2 class="page-title">Miscellaneous</h2>
+      <p class="page-desc">What I'm learning, writing, and doing off the clock.</p>
+    </div>
+    <div class="misc-grid">
+      <div class="misc-card glass"><h4>Currently learning</h4><ul><li>LLM fine-tuning &amp; RAG pipelines</li><li>Rust for data tooling</li><li>Advanced dbt macros</li></ul></div>
+      <div class="misc-card glass"><h4>Writing &amp; talks</h4><ul><li>Why your ML model fails in prod</li><li>SQL patterns I wish I knew earlier</li><li>Speaker · PyData 2024</li></ul></div>
+      <div class="misc-card glass"><h4>Open source</h4><p>Contributor to pandas and Great Expectations, plus a handful of small data-validation utilities.</p></div>
+      <div class="misc-card glass"><h4>Beyond data</h4><p>Amateur photographer, coffee obsessive, occasional chess player. Building a personal finance tracker on the side.</p></div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<!-- Floating bottom bar (home only) -->
+<button class="bottom-bar glass" id="bottomBar" data-goto="contact">
+  <span class="bb-label-long">Have a project in mind? Let's build it</span>
+  <span class="bb-label-short">Let's build it</span>
+  <span class="bb-go">↑</span>
+</button>
+
+<script src="js/data.js"></script>
+<script src="js/deck.js"></script>
+<script src="js/grid.js"></script>
+<script src="js/tabs.js"></script>
+<script src="js/cursor.js"></script>
+</body>
+</html>
