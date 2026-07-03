@@ -19,6 +19,7 @@
 
   --pad-x: clamp(20px, 6vw, 90px);
   --radius: 22px;
+  --card-h: clamp(340px, 48vh, 520px);
 }
 
 html { scroll-behavior: smooth; }
@@ -28,24 +29,40 @@ body {
   color: var(--ink);
   min-height: 100vh;
   overflow-x: hidden;
-  background: #16395e;
+  background: #22364f;
   text-shadow: 0 1px 3px rgba(10, 26, 46, 0.22);
 }
 input, textarea, .btn-primary, .tab.active { text-shadow: none; }
 
 /* ---------- Atmosphere ---------- */
-/* Background image lives in assets/bg.jpg — swap the file to change the mood. */
+/* Pure-CSS sky: deep moody blue, soft light pooling center-left, darker
+   toward the right edge. No image asset — tune gradient stops for mood. */
 .sky {
   position: fixed; inset: 0; z-index: 0;
   background:
-    url('../assets/bg.jpg') center / cover no-repeat,
-    linear-gradient(180deg, #0d2a4c 0%, #35699b 100%);
+    radial-gradient(120% 130% at 38% 42%, rgba(122, 154, 198, 0.35) 0%, rgba(82, 112, 158, 0.18) 38%, transparent 65%),
+    linear-gradient(112deg, #2c4266 0%, #3a5480 34%, #33496e 55%, #24354f 78%, #1a2740 100%);
+}
+/* Micro-dot grid — inline SVG tile, masked so it dissolves toward the
+   horizon and corners; soft-light lets dots tint with the sky behind them. */
+.sky::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Ccircle cx='13' cy='13' r='1' fill='%23fff'/%3E%3C/svg%3E");
+  opacity: 0.3; mix-blend-mode: soft-light;
+  -webkit-mask-image: radial-gradient(130% 100% at 42% 38%, #000 0%, rgba(0,0,0,0.45) 55%, transparent 88%);
+  mask-image: radial-gradient(130% 100% at 42% 38%, #000 0%, rgba(0,0,0,0.45) 55%, transparent 88%);
+}
+/* Film grain — inline SVG turbulence, tiled. */
+.sky::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.055; mix-blend-mode: overlay;
 }
 .sky-tint {
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
-    linear-gradient(105deg, rgba(8, 20, 40, 0.42) 0%, rgba(8, 20, 40, 0.18) 42%, transparent 68%),
-    linear-gradient(180deg, rgba(6, 16, 34, 0.4) 0%, transparent 26%, transparent 72%, rgba(4, 10, 22, 0.45) 100%);
+    radial-gradient(140% 120% at 45% 45%, transparent 55%, rgba(8, 16, 30, 0.4) 100%),
+    linear-gradient(180deg, rgba(8, 18, 36, 0.25) 0%, transparent 30%, transparent 78%, rgba(6, 12, 24, 0.3) 100%);
 }
 
 /* ---------- Cursor glow ---------- */
@@ -153,12 +170,17 @@ main { flex: 1; display: flex; flex-direction: column; }
 .hero-actions { display: flex; gap: 12px; margin-top: 22px; }
 .chips { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
 .chip {
-  font-size: 13px; font-weight: 500; color: var(--ink-dim); text-decoration: none;
-  padding: 7px 15px; border-radius: 999px;
-  background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.18);
-  transition: color .25s, background .3s, transform .3s;
+  font-size: 13.5px; font-weight: 600; color: var(--ink); text-decoration: none;
+  padding: 8px 17px; border-radius: 999px;
+  background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.34);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.28), 0 4px 14px rgba(7, 22, 42, 0.18);
+  transition: color .25s, background .3s, transform .3s, box-shadow .3s;
 }
-.chip:hover { color: var(--ink); background: rgba(255,255,255,0.16); transform: translateY(-1px); }
+.chip:hover {
+  background: rgba(255,255,255,0.26); transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.32), 0 8px 20px rgba(7, 22, 42, 0.24);
+}
 
 /* ---------- Deck ---------- */
 .deck-block {
@@ -170,8 +192,9 @@ main { flex: 1; display: flex; flex-direction: column; }
   margin-bottom: 10px;
 }
 .deck-label {
-  font-size: 12px; font-weight: 600; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--ink-faint);
+  font-size: 14px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--ink-dim);
+  text-shadow: 0 1px 8px rgba(10, 26, 46, 0.4);
 }
 .deck-viewport {
   position: relative; width: 100vw; margin-left: calc(-1 * var(--pad-x));
@@ -187,8 +210,8 @@ main { flex: 1; display: flex; flex-direction: column; }
 .deck-card {
   position: absolute; top: 0; left: 0;
   width: clamp(280px, 30vw, 440px);
-  height: clamp(340px, 48vh, 520px);
-  margin-top: calc(-0.5 * clamp(340px, 48vh, 520px));
+  height: var(--card-h);
+  margin-top: calc(-0.5 * var(--card-h));
   border-radius: var(--radius); overflow: hidden;
   will-change: transform, opacity;
   border: 1px solid rgba(255,255,255,0.26);
@@ -211,8 +234,10 @@ main { flex: 1; display: flex; flex-direction: column; }
 }
 .deck-card .t { font-size: 19px; font-weight: 600; margin-top: 3px; letter-spacing: -0.01em; }
 .deck-progress {
-  height: 3px; width: 180px;
-  background: rgba(255,255,255,0.14); border-radius: 3px; overflow: hidden;
+  height: 4px; width: 220px;
+  margin: 16px auto 4px;
+  background: rgba(255,255,255,0.22); border-radius: 4px; overflow: hidden;
+  box-shadow: 0 1px 6px rgba(7, 22, 42, 0.3);
 }
 .deck-progress span {
   display: block; height: 100%; width: 24%;
@@ -319,6 +344,18 @@ main { flex: 1; display: flex; flex-direction: column; }
 }
 
 /* ---------- Responsive ---------- */
+/* Short windows (laptops): compact the home column so the deck slider
+   stays visible above the fixed bottom bar without scrolling. */
+@media (max-height: 900px) {
+  :root { --card-h: clamp(240px, 34vh, 300px); }
+  .shell { padding-top: 92px; padding-bottom: 98px; }
+  .hero { margin-top: 0; }
+  .deck-block { margin-top: 18px; }
+  .deck-head { margin-bottom: 8px; }
+  .deck-viewport { min-height: 288px; }
+  .deck-progress { margin: 12px auto 0; }
+}
+
 @media (max-width: 1000px) {
   .hero { grid-template-columns: 1fr; align-items: start; gap: 26px; }
   .hero-right { padding-top: 0; }
